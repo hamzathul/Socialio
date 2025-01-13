@@ -3,11 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import FollowButton from "./FollowButton";
+import { currentUser } from "@clerk/nextjs/server";
 
 const WhoToFollow = async () => {
   const users = await getRandomUsers();
 
-  if (users.length === 0) return null;
+  const user = await currentUser();
+
+  if (!user) return null;
+
+  if (users?.length === 0) return null;
 
   return (
     <Card>
@@ -16,7 +21,7 @@ const WhoToFollow = async () => {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {users.map((user) => (
+          {users?.map((user) => (
             <div
               key={user.id}
               className="flex gap-2 items-center justify-between"
