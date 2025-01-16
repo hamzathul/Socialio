@@ -1,4 +1,4 @@
-"user server";
+"use server";
 
 import { prisma } from "@/lib/prisma";
 import { getDbUserId } from "./user.action";
@@ -19,6 +19,20 @@ export async function getNotifications() {
             name: true,
             username: true,
             image: true,
+          },
+        },
+        post: {
+          select: {
+            id: true,
+            content: true,
+            image: true,
+          },
+        },
+        comment: {
+          select: {
+            id: true,
+            content: true,
+            createdAt: true,
           },
         },
       },
